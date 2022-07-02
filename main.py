@@ -10,14 +10,14 @@ app.jinja_env.lstrip_blocks = True
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        return redirect(url_for('definition', country = request.form.get('query')))
+        return redirect(url_for('country_finder', country = request.form.get('query')))
     else:
         return render_template("base.html")
 
 @app.route('/<country>/')
-def definition(country):
-    current_country = Country(country)
-    if not current_country.valid_country == 404:
+def country_finder(country):
+    current_country = Country(country, None)
+    if not current_country.valid_country:
         return render_template('error.html')
     else:
         return render_template('result.html', search_query = current_country)

@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Country Factsheet</title>
         <link rel='stylesheet' href="{{ url_for('static', filename='styles/styles.css') }}">
+        <link rel="icon" type="image/x-icon" href="">
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Gantari&display=swap" rel="stylesheet">   
+        <script>
+            function init() {
+                const textBox = document.getElementById('text-box');    
+                textBox.addEventListener('input', function() {
+                    console.log(textBox.value);
+                });
+            }
+
+            document.addEventListener('readystatechange', function() {
+                if (document.readyState === "complete") {
+                    init();
+                }
+            });
+        </script>
     </head>
     <body>
-        <div id='search-bar'>
-            <form action="/" method="POST" enctype="multipart/form-data">
-                <input type="text" name="query" id="text-box" placeholder="Enter a word here" autocomplete="off">
-                <input type="submit" id="submit-btn" value="Search">
-            </form>
+        <div id='left'>
+            <div id='search-bar'>
+                <form action="/" method="POST" enctype="multipart/form-data">
+                    <input type="text" name="query" id="text-box" placeholder="Enter a word here" autocomplete="off">
+                    <input type="submit" id="submit-btn" value="Search">
+                </form>
+            </div>
         </div>
-        <div id='search-result'>
-          {% block result %} {% endblock %}
+        <div id='right'>  
+                     
         </div>
         <div id="footer">
             Powered by <a href="https://restcountries.com" target="_blank">Rest Countries API</a>

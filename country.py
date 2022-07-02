@@ -6,41 +6,71 @@ class Country:
 
     country_repo = 'https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json'
     name_search = "https://restcountries.com/v3.1/name/"
-    # countries = []
 
-    # @staticmethod
-    # def loadCountries():
-    #     retrieved_info = str(requests.get(Country.country_repo).text)
-    #     country_data = json.loads(retrieved_info)
-    #     for country_obj in country_data:
-    #         current = Country(country_obj['country'], country_obj['abbreviation'])
-    #         Country.countries.append(current)
+    @staticmethod
+    def getCountryByName(searchInput):
+        api_response = json.loads(requests.get(Country.name_search + searchInput).text)
+        
+        # sorting by population for relevancy
+        api_response = sorted(api_response, key=lambda d: int(d['population']), reverse=True) 
 
-    def __init__(self, name):
+        if 'message' in api_response:
+            return -1
+        
+        relevant_countries = []
+
+        for country_data in api_response:
+            relevant_countries.append(Country("N/A", country_data))
+
+        return relevant_countries
+
+    def __init__(self, name, API_data=None):
         self.name = name
         self.valid_country = True
+     
+        api_response = None
 
-        api_response = json.loads(requests.get(Country.name_search + self.name).text)
-        
-        if 'message' in api_response:
-            self.valid_country = False
-            return 
+        if name != "N/A":
+            api_response = json.loads(requests.get(Country.name_search + self.name).text)
+            
+            if 'message' in api_response:
+                self.valid_country = False
+                return 
+            
+            # sorting by population for relevancy
+            api_response = sorted(api_response, key=lambda d: int(d['population']), reverse=True) 
+
+            api_response = api_response[0]
+        else:
+            api_response = API_data
+
 
         self.official_name_eng = api_response['name']['official']
         self.official_name_spa = api_response['translations']['spa']['official']
         self.official_name_fre = api_response['translations']['fra']['official']
-        self.cca3 = api_response['cca3']
+        self.abbr = api_response['cca3']
         self.currencies = api_response['currencies']
-        self.capital = api_response['capital'][0]
+
+        if 'capital' in api_response:
+            self.capital = api_response['capital'][0]
+
         self.continents = api_response['continents']
-        self.region = api_response['region']
-        self.subregion = api_response['subregion']
+        self.region = api_response['subregion']
         self.area = api_response['area']
-        self.borders = api_response['borders']
+
+        if 'borders' in api_response:
+            self.borders = api_response['borders']
+            
         self.flag = api_response['flags']['png']
-        self.coat_of_arms = api_response['coatOfArms']['png']
+        self.flag_icon = api_response['flag']
+    
+        if 'png' in api_response['coatOfArms']:
+            self.coat_of_arms = api_response['coatOfArms']['png']
+
         self.timezones = api_response['timezones']
         self.population = api_response['population']
 
     def __repr__(self):
-        return "Country - name: " + self.name + ", abbr: " + self.abbr
+        return "Country - name: " + self.official_name_eng
+
+# print(Country.getCountryByName('China'))

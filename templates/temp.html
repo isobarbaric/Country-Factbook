@@ -12,6 +12,7 @@
             function init() {
                 const textBox = document.getElementById('text-box');    
                 textBox.addEventListener('input', function() {
+                    // read to a JSON file and read from that file 
                     console.log(textBox.value);
                     populateSearchResults(textBox.value);     
                 });
