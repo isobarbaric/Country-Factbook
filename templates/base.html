@@ -8,10 +8,21 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Gantari&display=swap" rel="stylesheet">   
         <script>
+            const userAction = async (userInput) => {
+                const response = await fetch('https://restcountries.com/v3.1/name/' + userInput)
+                const jsonified = await response.json()
+                return jsonified
+            }
+
             function init() {
                 const textBox = document.getElementById('text-box');    
                 textBox.addEventListener('input', function() {
-                    console.log(textBox.value);
+                    let json_response = userAction(textBox.value);
+                    Promise.allSettled([json_response]).then(function(value) {
+                        console.log(value);
+                        value.sort((a, b) => a['population'] > b['population']);
+                        <!-- console.log(value); -->
+                    });
                 });
             }
 
@@ -20,14 +31,13 @@
                     init();
                 }
             });
-        </script>
+       </script>
     </head>
     <body>
         <div id='left'>
             <div id='search-bar'>
                 <form action="/" method="POST" enctype="multipart/form-data">
                     <input type="text" name="query" id="text-box" placeholder="Enter a word here" autocomplete="off">
-                    <input type="submit" id="submit-btn" value="Search">
                 </form>
             </div>
         </div>
