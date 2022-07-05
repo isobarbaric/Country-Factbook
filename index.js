@@ -70,14 +70,10 @@ function init() {
             let table = document.getElementById('search-results');
             table.innerHTML = '';
 
-            table.style.border = '0';
-            
             // add new rows
-            table.style.border = '1px solid black'; 
-            
             for (let i = 0; i < clonedCountries.length; i++) {
                 let tr = "<tbody class='country'>";
-                tr += "<tr><td rowspan='2'><img src='" + clonedCountries[i]['flags']['png'] + "' alt='flag'></td><td>" + clonedCountries[i]['cca3'] + "</td></tr><tr><td>" + clonedCountries[i]['name']['official'] + "</td></tr>"
+                tr += "<tr><td rowspan='2'><img src='" + clonedCountries[i]['flags']['png'] + "' alt='flag'></td><td class='center'>" + clonedCountries[i]['cca3'] + "</td></tr><tr><td class='center'>" + clonedCountries[i]['name']['official'] + "</td></tr>"
                 tr += '</tbody>';
                 console.log(tr);
                 table.innerHTML += tr;
