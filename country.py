@@ -7,23 +7,6 @@ class Country:
     country_repo = 'https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-abbreviation.json'
     name_search = "https://restcountries.com/v3.1/name/"
 
-    @staticmethod
-    def getCountryByName(searchInput):
-        api_response = json.loads(requests.get(Country.name_search + searchInput).text)
-        
-        # sorting by population for relevancy
-        api_response = sorted(api_response, key=lambda d: int(d['population']), reverse=True) 
-
-        if 'message' in api_response:
-            return -1
-        
-        relevant_countries = []
-
-        for country_data in api_response:
-            relevant_countries.append(Country("N/A", country_data))
-
-        return relevant_countries
-
     def __init__(self, name, API_data=None):
         self.name = name
         self.valid_country = True
@@ -43,7 +26,6 @@ class Country:
             api_response = api_response[0]
         else:
             api_response = API_data
-
 
         self.official_name_eng = api_response['name']['official']
         self.official_name_spa = api_response['translations']['spa']['official']
