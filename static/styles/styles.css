@@ -23,13 +23,14 @@ html, body {
 }
 
 img {
-    padding: 1em;
+    height: 40px;
 }
-
+            
 div#search-bar {
     background-color:  #87ceeb;
     text-align: center;
     font-size: 20px;
+    border-bottom: 10px solid #FCE883;
 }
 
 #text-box {
@@ -67,12 +68,22 @@ input:focus {
 }
 
 table {
-    border: 1px solid black;
-    margin: 0.25em;
+    width: auto;
+    /* margin: 0.25em; */
+    text-align: center;
+    border-collapse: collapse;
+}
+
+tr {
+    border: 1px dotted black;
 }
 
 td {
-    border: 1px dotted black;
+    padding: 0.2em;
+}
+
+#no-border {
+    border: 0;
 }
 
 a {

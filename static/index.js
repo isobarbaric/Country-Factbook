@@ -67,16 +67,22 @@ function init() {
             console.log(clonedCountries);
 
             let tbody = document.getElementById('tbody');
-
+           
             // delete existing rows
+            let table = document.getElementById('search-results');
+            table.style.border = '0';
+            
             while (tbody.hasChildNodes()) {
               tbody.removeChild(tbody.lastChild);
             }
-
+            
             // add new rows
+            table.style.border = '1px solid black'; 
+            
             for (let i = 0; i < clonedCountries.length; i++) {
-                let tr = "<tr>";
-                tr += "<td>" + clonedCountries[i]['name']['official'] + "</td>" + "<td>$" + clonedCountries[i]['cca3'] + "</td></tr>";
+                table.style.border = '1px solid black'; 
+                let tr = "";
+                tr += "<tr><td rowspan='2'><img src='" + clonedCountries[i]['flags']['png'] + "' alt='flag'></td><td>" + clonedCountries[i]['cca3'] + "</td></tr><tr><td>" + clonedCountries[i]['name']['official'] + "</td></tr>"
                 tbody.innerHTML += tr;
             }
 
