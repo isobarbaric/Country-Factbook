@@ -66,24 +66,21 @@ function init() {
             clonedCountries.sort((a, b) => parseInt(a['population']) < parseInt(b['population']));
             console.log(clonedCountries);
 
-            let tbody = document.getElementById('tbody');
-           
             // delete existing rows
             let table = document.getElementById('search-results');
+            table.innerHTML = '';
+
             table.style.border = '0';
-            
-            while (tbody.hasChildNodes()) {
-              tbody.removeChild(tbody.lastChild);
-            }
             
             // add new rows
             table.style.border = '1px solid black'; 
             
             for (let i = 0; i < clonedCountries.length; i++) {
-                table.style.border = '1px solid black'; 
-                let tr = "";
+                let tr = "<tbody class='country'>";
                 tr += "<tr><td rowspan='2'><img src='" + clonedCountries[i]['flags']['png'] + "' alt='flag'></td><td>" + clonedCountries[i]['cca3'] + "</td></tr><tr><td>" + clonedCountries[i]['name']['official'] + "</td></tr>"
-                tbody.innerHTML += tr;
+                tr += '</tbody>';
+                console.log(tr);
+                table.innerHTML += tr;
             }
 
         });

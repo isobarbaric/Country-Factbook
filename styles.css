@@ -14,6 +14,7 @@ html, body {
     background-color: #87ceeb;
     height: 100vh;
     overflow: hidden;
+    /* display: table; */
 }
 
 #right {
@@ -23,7 +24,7 @@ html, body {
 }
 
 img {
-    height: 40px;
+    height: 3em;
 }
             
 div#search-bar {
@@ -68,22 +69,30 @@ input:focus {
 }
 
 table {
-    width: auto;
-    /* margin: 0.25em; */
-    text-align: center;
+    text-align: center; 
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
 }
 
 tr {
-    border: 1px dotted black;
+    border: 1.2em solid transparent;
 }
 
 td {
     padding: 0.2em;
+    font-size: 1em;
+    overflow: hidden;
 }
 
 #no-border {
     border: 0;
+}
+
+.country {
+    box-shadow: 0 0 0 1px black;
+    border-radius: 2em;
+    /* border-bottom: 15px solid transparent; */
 }
 
 a {
