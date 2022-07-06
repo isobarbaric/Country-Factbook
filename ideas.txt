@@ -1,2 +1,0 @@
-
-- 2 panels left and right with javascript listener with suggestions below to click on
